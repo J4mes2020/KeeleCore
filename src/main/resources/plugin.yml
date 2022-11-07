@@ -5,3 +5,10 @@ api-version: 1.19
 authors: [ Joey ]
 description: The Core for the keele server
 website: https://odionwolf.dev
+
+commands:
+  keeleauth:
+    description: Commands for Authentication
+    aliases:
+      - ka
+      - kauth
