@@ -12,3 +12,9 @@ commands:
     aliases:
       - ka
       - kauth
+
+
+  gamemode:
+    description: Changes the players gamemode
+    aliases:
+      - gm
