@@ -1,5 +1,6 @@
 package dev.joey.keelecore.commands;
 
+import dev.joey.keelecore.util.Colours;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -9,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class GameMode implements CommandExecutor {
+public class GameModeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
@@ -20,11 +21,11 @@ public class GameMode implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (player.hasPermission("kc.admin")) {
+        if (player.hasPermission("kc.admin") || player.hasPermission("kc.gamemode")) {
 
             if (args.length == 0 || args.length > 2) {
-                player.sendMessage(Component.text().content("Invalid Sytax").color(TextColor.color(202, 28, 26)));
-                player.sendMessage(Component.text().content("/gamemode <type> [player]").color(TextColor.color(202, 28, 26)));
+                player.sendMessage(Component.text().content("Invalid Sytax").color(TextColor.color(Colours.error)));
+                player.sendMessage(Component.text().content("/gamemode <type> [player]").color(TextColor.color(Colours.error)));
                 return true;
             }
 
@@ -45,34 +46,29 @@ public class GameMode implements CommandExecutor {
             case "0", "survival" -> {
                 player.setGameMode(org.bukkit.GameMode.SURVIVAL);
                 player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(77, 187, 63)).build());
+                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(Colours.success)).build());
                 return;
-
             }
             case "1", "creative" -> {
                 player.setGameMode(org.bukkit.GameMode.CREATIVE);
                 player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(77, 187, 63)).build());
+                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(Colours.success)).build());
                 return;
-
             }
-
             case "2", "adventure" -> {
                 player.setGameMode(org.bukkit.GameMode.ADVENTURE);
                 player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(77, 187, 63)).build());
+                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(Colours.success)).build());
                 return;
-
             }
             case "3", "spectator" -> {
                 player.setGameMode(org.bukkit.GameMode.SPECTATOR);
                 player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(77, 187, 63)).build());
+                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(Colours.success)).build());
                 return;
-
             }
         }
-        player.sendMessage(Component.text().content("Sorry thats not a valid gamemode").color(TextColor.color(202, 28, 26)));
+        player.sendMessage(Component.text().content("Sorry thats not a valid gamemode").color(TextColor.color(Colours.success)));
 
 
     }

@@ -6,7 +6,8 @@ public class CommandManager {
 
     public CommandManager(KeeleCore keeleCore) {
 
-        keeleCore.getCommand("gamemode").setExecutor(new GameMode());
+        keeleCore.getCommand("gamemode").setExecutor(new GameModeCommand());
+        keeleCore.getCommand("time").setExecutor(new TimeSettingsCommand());
 
     }
 }

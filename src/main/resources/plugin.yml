@@ -18,3 +18,9 @@ commands:
     description: Changes the players gamemode
     aliases:
       - gm
+
+  time:
+    description: Changes the world time
+    aliases:
+      - tm
+      - t
