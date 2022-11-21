@@ -27,7 +27,7 @@ public class JoinAndRegListeners implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
 
-        Player player = event.getPlayer();
+        Player player = event.getPlayer(); //variable initialization
         if (!FileModifications.isInFile(player.getUniqueId().toString(), fileModifications.getPlayerFile())) { //If Player doesn't exist in file
 
             player.sendMessage(

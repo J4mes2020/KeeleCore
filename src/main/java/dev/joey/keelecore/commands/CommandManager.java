@@ -8,6 +8,7 @@ public class CommandManager {
 
         keeleCore.getCommand("gamemode").setExecutor(new GameModeCommand());
         keeleCore.getCommand("time").setExecutor(new TimeSettingsCommand());
+        keeleCore.getCommand("teleport").setExecutor(new TeleportCommand());
 
     }
 }

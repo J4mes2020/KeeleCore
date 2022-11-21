@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class FileModifications {
 
     private final KeeleCore keeleCore;
-    YamlDocument playerConfig;
+    YamlDocument playerConfig; //variable declaration
 
     public FileModifications(KeeleCore keeleCore) {
         this.keeleCore = keeleCore;
