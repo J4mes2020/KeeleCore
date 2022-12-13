@@ -19,8 +19,28 @@ commands:
     aliases:
       - gm
 
+  teleport:
+    description: Teleports a player
+    aliases:
+      - tp
+
   time:
     description: Changes the world time
     aliases:
       - tm
       - t
+
+  vanish:
+    description: Vanishes a user
+    aliases:
+      - v
+      - vn
+
+  whois:
+    description: Gains info about a user
+    aliases:
+      - ws
+      - seen
+
+  god:
+    description: Applies godmode to a player
