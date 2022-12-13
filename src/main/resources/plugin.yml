@@ -44,3 +44,6 @@ commands:
 
   god:
     description: Applies godmode to a player
+
+  student:
+    description: Opens student menu

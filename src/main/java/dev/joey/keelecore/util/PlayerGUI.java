@@ -1,11 +1,10 @@
 package dev.joey.keelecore.util;
 
-import dev.joey.keelecore.KeeleCore;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 
 public interface PlayerGUI {
 
@@ -15,4 +14,5 @@ public interface PlayerGUI {
 
     void openGUI(Player player);
 
+    ItemStack createItem(Material material, Component component);
 }
