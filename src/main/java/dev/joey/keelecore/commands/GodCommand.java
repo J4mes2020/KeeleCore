@@ -24,8 +24,13 @@ public class GodCommand implements CommandExecutor {
         if (player.hasPermission("kc.admin") || player.hasPermission("kc.god") || player.isOp()) {
 
             if (args.length == 0) {
-                player.setInvulnerable(true);
-                player.sendMessage(Component.text().content("Enabled godmode for " + player.getName()).color(TextColor.color(UtilClass.brightSuccess)));
+                if (!player.isInvulnerable()) {
+                    player.setInvulnerable(true);
+                    player.sendMessage(Component.text().content("Enabled godmode for " + player.getName()).color(TextColor.color(UtilClass.brightSuccess)));
+                } else {
+                    player.setInvulnerable(false);
+                    player.sendMessage(Component.text().content("Disabled godmode for " + player.getName()).color(TextColor.color(UtilClass.success)));
+                }
                 return true;
 
             }
@@ -34,19 +39,18 @@ public class GodCommand implements CommandExecutor {
 
                 Player victim = Bukkit.getPlayer(args[0]);
                 if (victim != null) {
-                    player.setInvulnerable(true);
-                    player.sendMessage(Component.text().content("Enabled godmode for " + victim.getName()).color(TextColor.color(UtilClass.brightSuccess)));
+                    if (!victim.isInvulnerable()) {
+                        victim.setInvulnerable(true);
+                        player.sendMessage(Component.text().content("Enabled godmode for " + victim.getName()).color(TextColor.color(UtilClass.brightSuccess)));
+                    } else {
+                        victim.setInvulnerable(false);
+                        player.sendMessage(Component.text().content("Disabled godmode for " + victim.getName()).color(TextColor.color(UtilClass.success)));
+                    }
+                    return true;
                 }
-                else {
-                    player.sendMessage(Component.text().content("That isn't a valid player").color(TextColor.color(UtilClass.error)));
-
-                }
-                return true;
-
             }
 
-        }
-        else {
+        } else {
             player.sendMessage(Component.text().content("You need to be a server operator to do this command").color(TextColor.color(UtilClass.error)));
         }
         return false;

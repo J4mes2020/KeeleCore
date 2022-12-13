@@ -11,6 +11,7 @@ public class CommandManager {
         keeleCore.getCommand("teleport").setExecutor(new TeleportCommand());
         keeleCore.getCommand("vanish").setExecutor(new VanishCommand(keeleCore));
         keeleCore.getCommand("whois").setExecutor(new WhoISCommand());
+        keeleCore.getCommand("god").setExecutor(new GodCommand());
 
 
     }
