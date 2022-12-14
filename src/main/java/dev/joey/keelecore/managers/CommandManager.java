@@ -1,7 +1,8 @@
-package dev.joey.keelecore.commands;
+package dev.joey.keelecore.managers;
 
 import dev.joey.keelecore.KeeleCore;
-import dev.joey.keelecore.auth.StudentCheckerCommand;
+import dev.joey.keelecore.admin.commands.*;
+import dev.joey.keelecore.auth.commands.StudentCheckerCommand;
 
 public class CommandManager {
 

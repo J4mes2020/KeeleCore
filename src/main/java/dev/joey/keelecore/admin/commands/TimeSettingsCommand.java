@@ -1,4 +1,4 @@
-package dev.joey.keelecore.commands;
+package dev.joey.keelecore.admin.commands;
 
 import dev.joey.keelecore.util.UtilClass;
 import net.kyori.adventure.text.Component;

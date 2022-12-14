@@ -1,5 +1,6 @@
-package dev.joey.keelecore.auth;
+package dev.joey.keelecore.auth.commands;
 
+import dev.joey.keelecore.auth.StudentGUI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.command.Command;

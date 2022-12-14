@@ -1,4 +1,4 @@
-package dev.joey.keelecore.Listeners;
+package dev.joey.keelecore.admin.listeners;
 
 import dev.joey.keelecore.KeeleCore;
 import dev.joey.keelecore.util.UtilClass;
