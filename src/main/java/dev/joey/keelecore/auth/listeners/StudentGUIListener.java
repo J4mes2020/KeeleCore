@@ -5,6 +5,8 @@ import dev.joey.keelecore.auth.StudentGUI;
 import dev.joey.keelecore.util.ConfigFileHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,8 +28,6 @@ public class StudentGUIListener implements Listener {
         this.keeleCore = keeleCore;
         configFileHandler = new ConfigFileHandler(keeleCore);
         keeleCore.getServer().getPluginManager().registerEvents(this, keeleCore);
-
-
 
     }
 

@@ -10,6 +10,7 @@ public class ListenerManager {
     public ListenerManager(KeeleCore keeleCore) {
         new BlockPluginListener(keeleCore);
         new StudentGUIListener(keeleCore);
+        //new ChatFormatting(keeleCore);
 
     }
 }
