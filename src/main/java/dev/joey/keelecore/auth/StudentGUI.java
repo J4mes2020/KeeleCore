@@ -1,6 +1,5 @@
 package dev.joey.keelecore.auth;
 
-import dev.joey.keelecore.auth.listeners.StudentGUIListener;
 import dev.joey.keelecore.util.PlayerGUI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
@@ -20,12 +19,12 @@ public class StudentGUI implements PlayerGUI {
 
     public ItemStack keeleStudent = createItem(Material.BLUE_WOOL,
             Component.text("Keele Student")
-                    .style(Style.style(TextColor.color(61, 158, 191), TextDecoration.BOLD))
+                    .style(Style.style(TextColor.color(61, 158, 191), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
                     .toBuilder().build());
 
     public ItemStack nonStudent = createItem(Material.GREEN_WOOL,
             Component.text("Non Keele Student")
-                    .style(Style.style(TextColor.color(36, 191, 41), TextDecoration.BOLD))
+                    .style(Style.style(TextColor.color(36, 191, 41), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
                     .toBuilder().build());
 
     public StudentGUI(InventoryHolder owner, int size, Component title) {
@@ -36,7 +35,6 @@ public class StudentGUI implements PlayerGUI {
     public void createGUI(InventoryHolder owner, int size, Component title) {
 
         GUI = Bukkit.createInventory(owner, size, title);
-
         GUI.setItem(3, keeleStudent);
         GUI.setItem(5, nonStudent);
 

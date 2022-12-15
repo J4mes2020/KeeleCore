@@ -16,11 +16,6 @@ public class TimeSettingsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Sorry only a player can run this command");
-            return true;
-        }
-
         Player player = (Player) sender;
 
         if (player.hasPermission("kc.admin") || player.hasPermission("kc.time") || player.isOp()) {

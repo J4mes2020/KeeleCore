@@ -60,6 +60,7 @@ public class StudentGUIListener implements Listener {
                 if (itemStack.isSimilar(GUI.keeleStudent)) {
                     KeeleCore.keeleStudent.add(player.getUniqueId().toString());
                     configFileHandler.getPlayerFile().set("players.students", KeeleCore.keeleStudent);
+                    event.setCancelled(true);
                     GUI.closeGUI(player);
                     return;
                 }
@@ -67,6 +68,7 @@ public class StudentGUIListener implements Listener {
                 if (itemStack.isSimilar(GUI.nonStudent)) {
                     KeeleCore.nonStudent.add(player.getUniqueId().toString());
                     configFileHandler.getPlayerFile().set("players.guests", KeeleCore.nonStudent);
+                    event.setCancelled(true);
                     GUI.closeGUI(player);
                 }
 

@@ -34,6 +34,9 @@ commands:
     aliases:
       - ws
       - seen
-
   god:
     description: Applies godmode to a player
+  feed:
+    description: Feeds a player
+  heal:
+    description: Heals a player
