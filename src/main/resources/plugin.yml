@@ -7,13 +7,6 @@ description: The Core for the keele server
 website: https://odionwolf.dev
 
 commands:
-  keeleauth:
-    description: Commands for Authentication
-    aliases:
-      - ka
-      - kauth
-
-
   gamemode:
     description: Changes the players gamemode
     aliases:
@@ -44,6 +37,3 @@ commands:
 
   god:
     description: Applies godmode to a player
-
-  student:
-    description: Opens student menu

@@ -10,7 +10,7 @@ public interface PlayerGUI {
 
     void createGUI(InventoryHolder owner, int size, Component title);
 
-    void closeGUI();
+    void closeGUI(Player player);
 
     void openGUI(Player player);
 

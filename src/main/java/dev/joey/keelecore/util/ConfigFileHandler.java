@@ -11,12 +11,16 @@ import java.io.IOException;
 
 public class ConfigFileHandler {
 
-    File playerFile;
-    FileConfiguration playerConfig;
+    static File playerFile;
+    static FileConfiguration playerConfig;
     KeeleCore keeleCore;
 
     public ConfigFileHandler(KeeleCore keeleCore) {
         this.keeleCore = keeleCore;
+    }
+
+    public FileConfiguration getPlayerFile() {
+        return playerConfig;
     }
 
     public void createPlayerFile() {
@@ -36,8 +40,15 @@ public class ConfigFileHandler {
 
     }
 
-    public static FileConfiguration getPlayerFile() {
-        return getPlayerFile();
+    public void saveFile() {
+
+        try {
+            playerConfig.save(playerFile);
+        } catch (IOException e) {
+            System.out.println("Couldn't save the file");
+        }
+
     }
+
 
 }
