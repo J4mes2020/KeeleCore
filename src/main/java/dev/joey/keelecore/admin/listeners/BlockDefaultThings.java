@@ -9,15 +9,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class BlockPluginListener implements Listener {
+public class BlockDefaultThings implements Listener {
 
-    public BlockPluginListener(KeeleCore keeleCore) {
+    public BlockDefaultThings(KeeleCore keeleCore) {
         keeleCore.getServer().getPluginManager().registerEvents(this, keeleCore);
     }
 
@@ -38,6 +40,17 @@ public class BlockPluginListener implements Listener {
             }
         }
 
+
+    }
+
+    @EventHandler (priority = EventPriority.HIGH)
+    public void onJoin(PlayerJoinEvent event) {
+        event.joinMessage(Component.text(""));
+    }
+
+    @EventHandler (priority = EventPriority.HIGH)
+    public void onJoin(PlayerQuitEvent event) {
+        event.quitMessage(Component.text(""));
     }
 
 }

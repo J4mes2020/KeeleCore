@@ -46,19 +46,14 @@ public class StudentGUIListener implements Listener {
 
         tabFormatting.assignTeam(player);
 
+        player.sendMessage(Component.text().append(Component.text("Welcome ").color(TextColor.color(UtilClass.information))).build()
+                .append(Component.text(player.getName()).color(TextColor.color(UtilClass.brightSuccess))).toBuilder().build()
+                .append(Component.text(" to the keele minecraft server").color(TextColor.color(UtilClass.information))).toBuilder().build());
 
-        if (KeeleCore.keeleStudent.contains(player.getUniqueId().toString())) {
-            player.sendMessage("Your a keele student");
-            return;
+        if (!(KeeleCore.keeleStudent.contains(player.getUniqueId().toString()))
+                || KeeleCore.nonStudent.contains(player.getUniqueId().toString())) {
+            GUI.openGUI(player);
         }
-
-        if (KeeleCore.nonStudent.contains(player.getUniqueId().toString())) {
-            player.sendMessage("Your not a keele student");
-
-            return;
-        }
-        GUI.openGUI(player);
-
 
 
     }

@@ -20,17 +20,18 @@ public final class KeeleCore extends JavaPlugin {
     @Override
     public void onEnable() {
         configFileHandler.createPlayerFile();
+        if (!Bukkit.getScoreboardManager().getMainScoreboard().getTeams().isEmpty()) {
+            Bukkit.getScoreboardManager().getMainScoreboard().getTeams().forEach(Team::unregister);
+        }
         keeleStudent = configFileHandler.getPlayerFile().getStringList("players.students");
         nonStudent = configFileHandler.getPlayerFile().getStringList("players.guests");
         new CommandManager(this);
         new ListenerManager(this);
-
 
     }
 
     @Override
     public void onDisable() {
         configFileHandler.saveFile();
-        Bukkit.getScoreboardManager().getMainScoreboard().getTeams().forEach(Team::unregister);
     }
 }
