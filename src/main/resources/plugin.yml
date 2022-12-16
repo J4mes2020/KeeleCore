@@ -4,6 +4,7 @@ main: dev.joey.keelecore.KeeleCore
 api-version: 1.19
 authors: [ Joey ]
 description: The Core for the keele server
+depend: [Vault]
 website: https://odionwolf.dev
 
 commands:

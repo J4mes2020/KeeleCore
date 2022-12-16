@@ -7,6 +7,9 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.data.DataMutateResult;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +18,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.List;
 
@@ -23,11 +27,16 @@ public class StudentGUIListener implements Listener {
     ConfigFileHandler configFileHandler;
     StudentGUI GUI = new StudentGUI(null, 9, Component.text("Select User").color(TextColor.color(168, 0, 82)));
     KeeleCore keeleCore;
+    LuckPerms luckPerms;
 
     public StudentGUIListener(KeeleCore keeleCore) {
         this.keeleCore = keeleCore;
         configFileHandler = new ConfigFileHandler(keeleCore);
         keeleCore.getServer().getPluginManager().registerEvents(this, keeleCore);
+        RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+        if (provider != null) {
+            luckPerms = provider.getProvider();
+        }
 
     }
 
@@ -56,10 +65,13 @@ public class StudentGUIListener implements Listener {
             if (event.getCurrentItem() != null) {
 
                 Player player = (Player) event.getWhoClicked();
+                User user = luckPerms.getUserManager().getUser(player.getUniqueId());
                 ItemStack itemStack = event.getCurrentItem();
                 if (itemStack.isSimilar(GUI.keeleStudent)) {
                     KeeleCore.keeleStudent.add(player.getUniqueId().toString());
                     configFileHandler.getPlayerFile().set("players.students", KeeleCore.keeleStudent);
+                    InheritanceNode node = InheritanceNode.builder("keelestudent").value(true).build();
+                    user.data().add(node);
                     event.setCancelled(true);
                     GUI.closeGUI(player);
                     return;

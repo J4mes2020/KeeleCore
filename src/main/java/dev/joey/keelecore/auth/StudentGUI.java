@@ -7,9 +7,11 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -17,14 +19,14 @@ public class StudentGUI implements PlayerGUI {
 
     Inventory GUI;
 
-    public ItemStack keeleStudent = createItem(Material.BLUE_WOOL,
+    public ItemStack keeleStudent = createItem(Material.LIME_WOOL,
             Component.text("Keele Student")
-                    .style(Style.style(TextColor.color(61, 158, 191), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
+                    .style(Style.style(TextColor.color(36, 191, 41), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
                     .toBuilder().build());
 
-    public ItemStack nonStudent = createItem(Material.GREEN_WOOL,
+    public ItemStack nonStudent = createItem(Material.BLUE_WOOL,
             Component.text("Non Keele Student")
-                    .style(Style.style(TextColor.color(36, 191, 41), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
+                    .style(Style.style(TextColor.color(61, 158, 191), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
                     .toBuilder().build());
 
     public StudentGUI(InventoryHolder owner, int size, Component title) {
@@ -63,6 +65,8 @@ public class StudentGUI implements PlayerGUI {
 
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
+        meta.addEnchant(Enchantment.ARROW_DAMAGE, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
         meta.displayName(component);
         item.setItemMeta(meta);
         return item;
