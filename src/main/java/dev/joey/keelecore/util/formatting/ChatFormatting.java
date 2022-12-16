@@ -1,4 +1,4 @@
-package dev.joey.keelecore.util;
+package dev.joey.keelecore.util.formatting;
 
 import dev.joey.keelecore.KeeleCore;
 import net.milkbowl.vault.chat.Chat;
@@ -102,7 +102,7 @@ public class ChatFormatting implements Listener {
         return input;
     }
 
-    private static String colorize(String string) {
+    public static String colorize(String string) {
         if (string == null) {
             return "null";
         }

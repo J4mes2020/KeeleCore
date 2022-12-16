@@ -3,7 +3,10 @@ package dev.joey.keelecore;
 import dev.joey.keelecore.managers.ListenerManager;
 import dev.joey.keelecore.managers.CommandManager;
 import dev.joey.keelecore.util.ConfigFileHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.List;
 
@@ -28,5 +31,6 @@ public final class KeeleCore extends JavaPlugin {
     @Override
     public void onDisable() {
         configFileHandler.saveFile();
+        Bukkit.getScoreboardManager().getMainScoreboard().getTeams().forEach(Team::unregister);
     }
 }
