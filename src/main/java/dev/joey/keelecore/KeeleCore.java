@@ -27,8 +27,8 @@ public final class KeeleCore extends JavaPlugin {
         }
         keeleStudent = configFileHandler.getPlayerFile().getStringList("players.students");
         nonStudent = configFileHandler.getPlayerFile().getStringList("players.guests");
-        new CommandManager(this);
-        new ListenerManager(this);
+        new CommandManager();
+        new ListenerManager();
 
     }
 

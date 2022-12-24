@@ -15,12 +15,13 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
 public class VanishCommand extends SuperCommand implements CommandExecutor {
 
-    ArrayList<Player> vanishedPlayers = new ArrayList<>();
+    static ArrayList<UUID> vanishedPlayers = new ArrayList<>();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -34,17 +35,17 @@ public class VanishCommand extends SuperCommand implements CommandExecutor {
         }
 
         playerNullCheck(player, player);
-        if (vanishedPlayers.contains(player)) { //UNVANISH
-            vanishedPlayers.remove(player);
+        if (vanishedPlayers.contains(player.getUniqueId())) { //UNVANISH
+            vanishedPlayers.remove(player.getUniqueId());
             for (Player playersOnServer : Bukkit.getOnlinePlayers()) {
                 playersOnServer.showPlayer(keeleCore, player);
             }
             player.getInventory().setHelmet(null);
             player.removePotionEffect(PotionEffectType.INVISIBILITY);
-            UtilClass.sendPlayerMessage(player, "You are not visible", UtilClass.success);
+            UtilClass.sendPlayerMessage(player, "You are now visible", UtilClass.success);
 
         } else { //VANISH
-            vanishedPlayers.add(player);
+            vanishedPlayers.add(player.getUniqueId());
             for (Player playersOnServer : Bukkit.getOnlinePlayers()) {
                 if (!(hasPermissionToSee(playersOnServer))) {
                     playersOnServer.hidePlayer(keeleCore, player);
@@ -69,6 +70,10 @@ public class VanishCommand extends SuperCommand implements CommandExecutor {
             head.setItemMeta(meta);
             player.getInventory().setHelmet(head);
         }
+    }
+
+    public static ArrayList<UUID> getVanishedPlayers() {
+        return vanishedPlayers;
     }
 
 

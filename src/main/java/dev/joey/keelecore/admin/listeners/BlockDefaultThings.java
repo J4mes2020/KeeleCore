@@ -1,9 +1,13 @@
 package dev.joey.keelecore.admin.listeners;
 
 import dev.joey.keelecore.KeeleCore;
+import dev.joey.keelecore.admin.commands.VanishCommand;
 import dev.joey.keelecore.util.UtilClass;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,9 +21,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import static dev.joey.keelecore.admin.commands.VanishCommand.getVanishedPlayers;
+import static dev.joey.keelecore.util.UtilClass.keeleCore;
+
 public class BlockDefaultThings implements Listener {
 
-    public BlockDefaultThings(KeeleCore keeleCore) {
+    public BlockDefaultThings() {
         keeleCore.getServer().getPluginManager().registerEvents(this, keeleCore);
     }
 
@@ -34,7 +41,7 @@ public class BlockDefaultThings implements Listener {
             for (String blockedCommand : blockedCommands) {
                 if (command.equalsIgnoreCase(blockedCommand)) {
                     event.setCancelled(true);
-                    player.sendMessage(Component.text().content("This server runs custom plugins and versions created by James").color(TextColor.color(UtilClass.information)));
+                    UtilClass.sendPlayerMessage(player, "This server runs custom plugins and versions created by James", UtilClass.information);
                     return;
                 }
             }
@@ -43,14 +50,41 @@ public class BlockDefaultThings implements Listener {
 
     }
 
-    @EventHandler (priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onJoin(PlayerJoinEvent event) {
-        event.joinMessage(Component.text(""));
+        System.out.println(getVanishedPlayers());
+        if (getVanishedPlayers().contains(event.getPlayer().getUniqueId())) {
+            event.joinMessage(Component.text(""));
+            return;
+        }
+        event.joinMessage(Component.text()
+                .content("[").color(TextColor.color(UtilClass.gray))
+                .append(Component.text("+")
+                        .style(Style.style(TextColor.color(UtilClass.success), TextDecoration.BOLD)))
+                .append(Component.text("] ").color(TextColor.color(UtilClass.gray)))
+                .append(Component.text(event.getPlayer().getName()))
+                .color(TextColor.color(UtilClass.gray)).build());
+
     }
 
-    @EventHandler (priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onJoin(PlayerQuitEvent event) {
-        event.quitMessage(Component.text(""));
+        System.out.println(getVanishedPlayers());
+        if (getVanishedPlayers().contains(event.getPlayer().getUniqueId())) {
+            event.quitMessage(Component.text(""));
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                players.hidePlayer(keeleCore, event.getPlayer());
+            }
+            return;
+        }
+        event.quitMessage(Component.text()
+                .content("[").color(TextColor.color(UtilClass.gray))
+                .append(Component.text("-")
+                        .style(Style.style(TextColor.color(UtilClass.error), TextDecoration.BOLD)))
+                .append(Component.text("] ").color(TextColor.color(UtilClass.gray)))
+                .append(Component.text(event.getPlayer().getName()))
+                .color(TextColor.color(UtilClass.gray)).build());
+
     }
 
 }

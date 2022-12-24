@@ -20,17 +20,19 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class StudentGUIListener implements Listener {
+import static dev.joey.keelecore.KeeleCore.keeleStudent;
+import static dev.joey.keelecore.KeeleCore.nonStudent;
+import static dev.joey.keelecore.util.UtilClass.keeleCore;
+
+public class GUIPlayerListener implements Listener {
 
     ConfigFileHandler configFileHandler;
     StudentGUI GUI = new StudentGUI(null, 9, Component.text("Select User").color(TextColor.color(168, 0, 82)));
-    KeeleCore keeleCore;
     LuckPerms luckPerms;
 
     TabFormatting tabFormatting = new TabFormatting();
 
-    public StudentGUIListener(KeeleCore keeleCore) {
-        this.keeleCore = keeleCore;
+    public GUIPlayerListener() {
         configFileHandler = new ConfigFileHandler(keeleCore);
         keeleCore.getServer().getPluginManager().registerEvents(this, keeleCore);
         RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
@@ -44,14 +46,12 @@ public class StudentGUIListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        tabFormatting.assignTeam(player);
-
         player.sendMessage(Component.text().append(Component.text("Welcome ").color(TextColor.color(UtilClass.information))).build()
-                .append(Component.text(player.getName()).color(TextColor.color(UtilClass.brightSuccess))).toBuilder().build()
+                .append(Component.text(player.getName()).color(TextColor.color(UtilClass.success))).toBuilder().build()
                 .append(Component.text(" to the keele minecraft server").color(TextColor.color(UtilClass.information))).toBuilder().build());
 
-        if (!(KeeleCore.keeleStudent.contains(player.getUniqueId().toString()))
-                || KeeleCore.nonStudent.contains(player.getUniqueId().toString())) {
+        if (!(keeleStudent.contains(player.getUniqueId().toString()))
+                || nonStudent.contains(player.getUniqueId().toString())) {
             GUI.openGUI(player);
         }
 
@@ -61,36 +61,33 @@ public class StudentGUIListener implements Listener {
     @EventHandler
     public void GUIListener(InventoryClickEvent event) {
 
-        if (event.getClickedInventory() == GUI.getGUI()) {
-            if (event.getCurrentItem() != null) {
+        if (event.getClickedInventory() == GUI.getGUI() && event.getCurrentItem() != null) {
+            Player player = (Player) event.getWhoClicked();
+            User user = luckPerms.getUserManager().getUser(player.getUniqueId());
+            ItemStack itemStack = event.getCurrentItem();
+            if (itemStack.isSimilar(GUI.keeleStudent)) {
 
-                Player player = (Player) event.getWhoClicked();
-                User user = luckPerms.getUserManager().getUser(player.getUniqueId());
-                ItemStack itemStack = event.getCurrentItem();
-                if (itemStack.isSimilar(GUI.keeleStudent)) {
-                    KeeleCore.keeleStudent.add(player.getUniqueId().toString());
-                    configFileHandler.getPlayerFile().set("players.students", KeeleCore.keeleStudent);
-                    InheritanceNode node = InheritanceNode.builder("keelestudent").value(true).build();
-                    user.data().add(node);
-                    luckPerms.getUserManager().saveUser(user);
+                keeleStudent.add(player.getUniqueId().toString());
+                configFileHandler.getPlayerFile().set("players.students", keeleStudent);
+                InheritanceNode node = InheritanceNode.builder("keelestudent").value(true).build();
+                user.data().add(node);
+                luckPerms.getUserManager().saveUser(user);
 
-                    player.sendMessage(Component.text("You are now known as a Keele Student").color(TextColor.color(UtilClass.brightSuccess)));
-                    event.setCancelled(true);
-                    GUI.closeGUI(player);
-                    return;
-                }
-
-                if (itemStack.isSimilar(GUI.nonStudent)) {
-                    KeeleCore.nonStudent.add(player.getUniqueId().toString());
-                    configFileHandler.getPlayerFile().set("players.guests", KeeleCore.nonStudent);
-                    player.sendMessage(Component.text("You are now known as a guest").color(TextColor.color(UtilClass.brightSuccess)));
-
-                    event.setCancelled(true);
-                    GUI.closeGUI(player);
-                }
-
-
+                UtilClass.sendPlayerMessage(player, "You are now registered as a Keele Student", UtilClass.success);
+                event.setCancelled(true);
+                GUI.closeGUI(player);
             }
+
+            if (itemStack.isSimilar(GUI.nonStudent)) {
+                nonStudent.add(player.getUniqueId().toString());
+                configFileHandler.getPlayerFile().set("players.guests", nonStudent);
+                UtilClass.sendPlayerMessage(player, "You are now registered as a Guest", UtilClass.success);
+                event.setCancelled(true);
+                GUI.closeGUI(player);
+            }
+
+            tabFormatting.assignTeam(player);
+
 
         }
 
@@ -100,7 +97,7 @@ public class StudentGUIListener implements Listener {
     public void GUIClosing(InventoryCloseEvent event) {
 
         Player player = (Player) event.getPlayer();
-        if (!(KeeleCore.keeleStudent.contains(player.getUniqueId().toString()) || KeeleCore.nonStudent.contains(player.getUniqueId().toString()))) {
+        if (!(keeleStudent.contains(player.getUniqueId().toString()) || nonStudent.contains(player.getUniqueId().toString()))) {
 
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(keeleCore, () -> {
                 if (event.getInventory() == GUI.getGUI()) {

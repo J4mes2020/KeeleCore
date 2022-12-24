@@ -1,11 +1,12 @@
 package dev.joey.keelecore.managers;
 
-import dev.joey.keelecore.KeeleCore;
 import dev.joey.keelecore.admin.commands.*;
+
+import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
 public class CommandManager {
 
-    public CommandManager(KeeleCore keeleCore) {
+    public CommandManager() {
 
         keeleCore.getCommand("gamemode").setExecutor(new GameModeCommand());
         keeleCore.getCommand("time").setExecutor(new TimeSettingsCommand());

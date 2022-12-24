@@ -1,6 +1,5 @@
 package dev.joey.keelecore.util.formatting;
 
-import dev.joey.keelecore.KeeleCore;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -13,6 +12,8 @@ import org.bukkit.event.server.ServiceUnregisterEvent;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
 /**
  * A super simple chat formatting plugin using Vault.
@@ -34,11 +35,8 @@ public class ChatFormatting implements Listener {
 
     private Chat vaultChat = null;
 
-    KeeleCore keeleCore;
+    public ChatFormatting() {
 
-    public ChatFormatting(KeeleCore keeleCore) {
-
-        this.keeleCore = keeleCore;
         keeleCore.saveDefaultConfig();
         reloadConfigValues();
         refreshVault();

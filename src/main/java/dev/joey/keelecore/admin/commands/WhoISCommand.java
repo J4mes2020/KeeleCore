@@ -1,5 +1,6 @@
 package dev.joey.keelecore.admin.commands;
 
+import dev.joey.keelecore.managers.supers.SuperCommand;
 import dev.joey.keelecore.util.UtilClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -14,43 +15,32 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-public class WhoISCommand implements CommandExecutor {
-
+public class WhoISCommand extends SuperCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Sorry only a player can run this command");
-            return true;
-        }
+        if (commandSenderCheck(sender)) return true;
 
         Player player = (Player) sender;
 
-        if (player.hasPermission("kc.admin") || player.hasPermission("kc.inspect")) {
+        if (noPermission(player, "kc.admin", "kc.inspect")) return true;
 
-            if (args.length == 1) {
-                Player victim = Bukkit.getPlayer(args[0]);
-                if (victim != null) {
-                    player.sendMessage(
-                            Component.text("IP: " + victim.getAddress().getAddress()
-                                            + "\n" + "Last Login: " + getDate(victim.getLastLogin())
-                                            + "\n" + "Last Seen: " + getDate(victim.getLastSeen()))
-                                    .color(TextColor.color(UtilClass.information)).toBuilder().build());
+        if (args.length == 1) {
+            Player victim = Bukkit.getPlayer(args[0]);
+            if (playerNullCheck(victim, player)) return true;
 
-                } else {
-                    player.sendMessage(Component.text().content(args[0] + " isn't a valid player").color(TextColor.color(UtilClass.error)));
-                }
-            } else {
-                player.sendMessage(Component.text().content("Invalid Syntax \n/whois [Player]").color(TextColor.color(UtilClass.error)));
-            }
+            UtilClass.sendPlayerMessage(player, "IP: " + victim.getAddress().getAddress()
+                    + "\n" + "Last Login: " + getDate(victim.getLastLogin())
+                    + "\n" + "Last Seen: " + getDate(victim.getLastSeen()), UtilClass.information);
 
-        } else {
-            player.sendMessage(Component.text().content("You need to be a server operator to do this command").color(TextColor.color(UtilClass.error)));
+            return true;
+
         }
-
+        player.sendMessage(Component.text().content("Invalid Syntax /whois [Player]").color(TextColor.color(UtilClass.error)));
         return false;
     }
+
 
     private String getDate(long epoc) {
 

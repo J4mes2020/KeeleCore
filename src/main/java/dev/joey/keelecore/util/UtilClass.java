@@ -24,6 +24,7 @@ public class UtilClass {
     public static int success = new Color(0, 255, 8).getRGB();
     public static int error = new Color(202, 28, 26).getRGB();
     public static int information = new Color(255, 221, 0).getRGB();
+    public static int gray = new Color(115, 115, 115).getRGB();
 
 
     public static void sendPlayerMessage(Player player, String message, int colour) {
@@ -58,16 +59,5 @@ public class UtilClass {
 
         }
 
-    }
-
-    public static ItemStack createGUIItem(Material material, Component displayName) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(displayName);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_POTION_EFFECTS);
-        item.setItemMeta(meta);
-
-        return item;
     }
 }
