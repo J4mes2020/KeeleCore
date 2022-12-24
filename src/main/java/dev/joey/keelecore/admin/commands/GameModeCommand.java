@@ -1,5 +1,6 @@
 package dev.joey.keelecore.admin.commands;
 
+import dev.joey.keelecore.managers.supers.SuperCommand;
 import dev.joey.keelecore.util.UtilClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -10,36 +11,29 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class GameModeCommand implements CommandExecutor {
+public class GameModeCommand extends SuperCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Sorry only a player can run this command");
-            return true;
-        }
+        if (commandSenderCheck(sender)) return true;
 
         Player player = (Player) sender;
 
-        if (player.hasPermission("kc.admin") || player.hasPermission("kc.gamemode") || player.isOp()) {
+        if (noPermission(player, "kc.admin", "kc.gamemode")) return true;
 
-            if (args.length == 0 || args.length > 2) {
-                player.sendMessage(Component.text().content("Invalid Syntax").color(TextColor.color(UtilClass.error)));
-                player.sendMessage(Component.text().content("/gamemode <type> [player]").color(TextColor.color(UtilClass.error)));
-                return true;
-            }
-
-            if (args.length == 2) {
-                player = Bukkit.getPlayer(args[1]);
-            }
-
-            changeGameMode(player, args);
-
+        if (args.length == 0 || args.length > 2) {
+            player.sendMessage(Component.text().content("Invalid Syntax").color(TextColor.color(UtilClass.error)));
+            player.sendMessage(Component.text().content("/gamemode <type> [player]").color(TextColor.color(UtilClass.error)));
             return true;
         }
-        else {
-            player.sendMessage(Component.text().content("You need to be a server operator to do this command").color(TextColor.color(UtilClass.error)));
+
+        if (args.length == 2) {
+            if (playerNullCheck(args[1], player)) return true;
+            player = Bukkit.getPlayer(args[1]);
         }
+
+        changeGameMode(player, args);
+
         return false;
     }
 
@@ -48,31 +42,27 @@ public class GameModeCommand implements CommandExecutor {
         switch (args[0]) {
             case "0", "survival" -> {
                 player.setGameMode(org.bukkit.GameMode.SURVIVAL);
-                player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(UtilClass.success)).build());
+                UtilClass.sendPlayerMessage(player, "Gamemode changed to " + player.getGameMode(), UtilClass.success);
                 return;
             }
             case "1", "creative" -> {
                 player.setGameMode(org.bukkit.GameMode.CREATIVE);
-                player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(UtilClass.success)).build());
+
+                UtilClass.sendPlayerMessage(player, "Gamemode changed to " + player.getGameMode(), UtilClass.success);
                 return;
             }
             case "2", "adventure" -> {
                 player.setGameMode(org.bukkit.GameMode.ADVENTURE);
-                player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(UtilClass.success)).build());
+                UtilClass.sendPlayerMessage(player, "Gamemode changed to " + player.getGameMode(), UtilClass.success);
                 return;
             }
             case "3", "spectator" -> {
                 player.setGameMode(org.bukkit.GameMode.SPECTATOR);
-                player.sendMessage(Component.text()
-                        .content("Gamemode changed to " + player.getGameMode()).color(TextColor.color(UtilClass.success)).build());
+                UtilClass.sendPlayerMessage(player, "Gamemode changed to " + player.getGameMode(), UtilClass.success);
                 return;
             }
         }
-        player.sendMessage(Component.text().content("Sorry thats not a valid gamemode").color(TextColor.color(UtilClass.success)));
-
+        UtilClass.sendPlayerMessage(player, "Sorry that's not a valid gamemode", UtilClass.error);
 
     }
 }

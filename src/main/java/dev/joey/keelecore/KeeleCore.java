@@ -3,6 +3,7 @@ package dev.joey.keelecore;
 import dev.joey.keelecore.managers.ListenerManager;
 import dev.joey.keelecore.managers.CommandManager;
 import dev.joey.keelecore.util.ConfigFileHandler;
+import dev.joey.keelecore.util.UtilClass;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -19,6 +20,7 @@ public final class KeeleCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        UtilClass.keeleCore = this;
         configFileHandler.createPlayerFile();
         if (!Bukkit.getScoreboardManager().getMainScoreboard().getTeams().isEmpty()) {
             Bukkit.getScoreboardManager().getMainScoreboard().getTeams().forEach(Team::unregister);
