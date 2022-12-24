@@ -10,7 +10,7 @@ public class CommandManager {
         keeleCore.getCommand("gamemode").setExecutor(new GameModeCommand());
         keeleCore.getCommand("time").setExecutor(new TimeSettingsCommand());
         keeleCore.getCommand("teleport").setExecutor(new TeleportCommand());
-        keeleCore.getCommand("vanish").setExecutor(new VanishCommand(keeleCore));
+        keeleCore.getCommand("vanish").setExecutor(new VanishCommand());
         keeleCore.getCommand("whois").setExecutor(new WhoISCommand());
         keeleCore.getCommand("god").setExecutor(new GodCommand());
         keeleCore.getCommand("feed").setExecutor(new FeedCommand());
