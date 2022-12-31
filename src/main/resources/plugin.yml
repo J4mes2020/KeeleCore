@@ -4,7 +4,9 @@ main: dev.joey.keelecore.KeeleCore
 api-version: 1.19
 authors: [ Joey ]
 description: The Core for the keele server
-depend: [Vault]
+depend:
+  - Vault
+  - ProtocolLib
 website: https://odionwolf.dev
 
 commands:
@@ -40,4 +42,10 @@ commands:
   feed:
     description: Feeds a player
   heal:
+    description: Heals a player
+  clearlag:
+    description: Heals a player
+  nextclear:
+    aliases:
+      - nextlag
     description: Heals a player

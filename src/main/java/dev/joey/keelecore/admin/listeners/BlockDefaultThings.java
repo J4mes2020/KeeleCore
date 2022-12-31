@@ -1,7 +1,5 @@
 package dev.joey.keelecore.admin.listeners;
 
-import dev.joey.keelecore.KeeleCore;
-import dev.joey.keelecore.admin.commands.VanishCommand;
 import dev.joey.keelecore.util.UtilClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
@@ -21,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import static dev.joey.keelecore.admin.commands.VanishCommand.getVanishedPlayers;
+import static dev.joey.keelecore.admin.vanish.VanishCommand.getVanishedPlayers;
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
 public class BlockDefaultThings implements Listener {
@@ -52,8 +50,7 @@ public class BlockDefaultThings implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onJoin(PlayerJoinEvent event) {
-        System.out.println(getVanishedPlayers());
-        if (getVanishedPlayers().contains(event.getPlayer().getUniqueId())) {
+        if (getVanishedPlayers().contains(event.getPlayer().getUniqueId().toString())) {
             event.joinMessage(Component.text(""));
             return;
         }
@@ -69,8 +66,7 @@ public class BlockDefaultThings implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onJoin(PlayerQuitEvent event) {
-        System.out.println(getVanishedPlayers());
-        if (getVanishedPlayers().contains(event.getPlayer().getUniqueId())) {
+        if (getVanishedPlayers().contains(event.getPlayer().getUniqueId().toString())) {
             event.quitMessage(Component.text(""));
             for (Player players : Bukkit.getOnlinePlayers()) {
                 players.hidePlayer(keeleCore, event.getPlayer());

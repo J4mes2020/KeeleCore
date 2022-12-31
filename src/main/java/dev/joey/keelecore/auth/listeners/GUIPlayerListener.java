@@ -51,7 +51,7 @@ public class GUIPlayerListener implements Listener {
                 .append(Component.text(" to the keele minecraft server").color(TextColor.color(UtilClass.information))).toBuilder().build());
 
         if (!(keeleStudent.contains(player.getUniqueId().toString()))
-                || nonStudent.contains(player.getUniqueId().toString())) {
+                && nonStudent.contains(player.getUniqueId().toString())) {
             GUI.openGUI(player);
         }
 

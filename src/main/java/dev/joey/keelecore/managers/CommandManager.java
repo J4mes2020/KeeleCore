@@ -1,6 +1,9 @@
 package dev.joey.keelecore.managers;
 
+import dev.joey.keelecore.admin.cleaning.CheckNextClear;
+import dev.joey.keelecore.admin.cleaning.ClearLagCommand;
 import dev.joey.keelecore.admin.commands.*;
+import dev.joey.keelecore.admin.vanish.VanishCommand;
 
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
@@ -16,6 +19,8 @@ public class CommandManager {
         keeleCore.getCommand("god").setExecutor(new GodCommand());
         keeleCore.getCommand("feed").setExecutor(new FeedCommand());
         keeleCore.getCommand("heal").setExecutor(new HealCommand());
+        keeleCore.getCommand("clearlag").setExecutor(new ClearLagCommand());
+        keeleCore.getCommand("nextclear").setExecutor(new CheckNextClear());
 
 
     }

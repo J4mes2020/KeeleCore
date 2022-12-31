@@ -29,15 +29,14 @@ public class TimeSettingsCommand extends SuperCommand implements CommandExecutor
             return true;
         }
 
-        if (!(Long.parseLong(args[1]) >= 24000 || UtilClass.TimesTickFormat.nameToTicks.containsKey(args[1]))) {
-            UtilClass.sendPlayerMessage(player, args[1] + " is not a valid time of day", UtilClass.error);
-            UtilClass.sendPlayerMessage(player, "Try one of these - " + new ArrayList<>(UtilClass.TimesTickFormat.nameToTicks.keySet()), UtilClass.error);
-            return true;
-        }
-
         World world = player.getWorld();
 
         if (args[1].matches("^[0-9]*$")) {
+
+            if (Long.parseLong(args[1]) >= 24000) {
+                UtilClass.sendPlayerMessage(player, args[1] + " is not a valid time of day", UtilClass.error);
+                return true;
+            }
             if (args[0].equalsIgnoreCase("set")) {
                 world.setTime(Long.parseLong(args[1]));
                 player.sendMessage(Component.text().content("Time changed to " + args[1]).color(TextColor.color(UtilClass.success)));
@@ -51,6 +50,11 @@ public class TimeSettingsCommand extends SuperCommand implements CommandExecutor
         } else {
 
 
+            if (!UtilClass.TimesTickFormat.nameToTicks.containsKey(args[1])) {
+                UtilClass.sendPlayerMessage(player, args[1] + " is not a valid time of day", UtilClass.error);
+                UtilClass.sendPlayerMessage(player, "Try one of these - " + new ArrayList<>(UtilClass.TimesTickFormat.nameToTicks.keySet()), UtilClass.error);
+                return true;
+            }
             if (args[0].equalsIgnoreCase("set")) {
                 world.setTime(UtilClass.TimesTickFormat.nameToTicks.get(args[1]));
                 player.sendMessage(Component.text().content("Time changed to " + args[1]).color(TextColor.color(UtilClass.success)));

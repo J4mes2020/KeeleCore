@@ -1,6 +1,7 @@
-package dev.joey.keelecore.admin.commands;
+package dev.joey.keelecore.admin.vanish;
 
 import dev.joey.keelecore.managers.supers.SuperCommand;
+import dev.joey.keelecore.util.ConfigFileHandler;
 import dev.joey.keelecore.util.UtilClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,13 +16,13 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import static dev.joey.keelecore.KeeleCore.nonStudent;
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
-public class VanishCommand extends SuperCommand implements CommandExecutor {
-
-    static ArrayList<UUID> vanishedPlayers = new ArrayList<>();
+public class VanishCommand extends Vanish implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -35,8 +36,8 @@ public class VanishCommand extends SuperCommand implements CommandExecutor {
         }
 
         playerNullCheck(player, player);
-        if (vanishedPlayers.contains(player.getUniqueId())) { //UNVANISH
-            vanishedPlayers.remove(player.getUniqueId());
+        if (vanishedPlayers.contains(player.getUniqueId().toString())) { //UNVANISH
+            vanishedPlayers.remove(player.getUniqueId().toString());
             for (Player playersOnServer : Bukkit.getOnlinePlayers()) {
                 playersOnServer.showPlayer(keeleCore, player);
             }
@@ -45,7 +46,7 @@ public class VanishCommand extends SuperCommand implements CommandExecutor {
             UtilClass.sendPlayerMessage(player, "You are now visible", UtilClass.success);
 
         } else { //VANISH
-            vanishedPlayers.add(player.getUniqueId());
+            vanishedPlayers.add(player.getUniqueId().toString());
             for (Player playersOnServer : Bukkit.getOnlinePlayers()) {
                 if (!(hasPermissionToSee(playersOnServer))) {
                     playersOnServer.hidePlayer(keeleCore, player);
@@ -58,10 +59,6 @@ public class VanishCommand extends SuperCommand implements CommandExecutor {
         return false;
     }
 
-    private boolean hasPermissionToSee(Player player) {
-        return player.isOp() || player.hasPermission("kc.see");
-    }
-
     private void applyHead(Player player) {
         if (player.getInventory().getHelmet() == null) {
             ItemStack head = new ItemStack(Material.PLAYER_HEAD);
@@ -70,10 +67,6 @@ public class VanishCommand extends SuperCommand implements CommandExecutor {
             head.setItemMeta(meta);
             player.getInventory().setHelmet(head);
         }
-    }
-
-    public static ArrayList<UUID> getVanishedPlayers() {
-        return vanishedPlayers;
     }
 
 

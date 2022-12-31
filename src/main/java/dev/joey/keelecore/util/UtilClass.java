@@ -26,7 +26,6 @@ public class UtilClass {
     public static int information = new Color(255, 221, 0).getRGB();
     public static int gray = new Color(115, 115, 115).getRGB();
 
-
     public static void sendPlayerMessage(Player player, String message, int colour) {
         player.sendMessage(Component.text().content(message).color(TextColor.color(colour)));
     }
