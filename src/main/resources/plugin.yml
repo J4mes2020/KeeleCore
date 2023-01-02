@@ -44,8 +44,8 @@ commands:
   heal:
     description: Heals a player
   clearlag:
-    description: Heals a player
+    description: clears the server lag
   nextclear:
     aliases:
       - nextlag
-    description: Heals a player
+    description: Shows when next clear lag

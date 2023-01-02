@@ -1,6 +1,5 @@
 package dev.joey.keelecore.auth.listeners;
 
-import dev.joey.keelecore.KeeleCore;
 import dev.joey.keelecore.auth.StudentGUI;
 import dev.joey.keelecore.util.ConfigFileHandler;
 import dev.joey.keelecore.util.UtilClass;
@@ -13,12 +12,16 @@ import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static dev.joey.keelecore.KeeleCore.keeleStudent;
 import static dev.joey.keelecore.KeeleCore.nonStudent;
@@ -43,6 +46,7 @@ public class GUIPlayerListener implements Listener {
     }
 
     @EventHandler
+            (priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
@@ -50,8 +54,8 @@ public class GUIPlayerListener implements Listener {
                 .append(Component.text(player.getName()).color(TextColor.color(UtilClass.success))).toBuilder().build()
                 .append(Component.text(" to the keele minecraft server").color(TextColor.color(UtilClass.information))).toBuilder().build());
 
-        if (!(keeleStudent.contains(player.getUniqueId().toString()))
-                && nonStudent.contains(player.getUniqueId().toString())) {
+
+        if (!nonStudent.contains(player.getUniqueId().toString()) && !keeleStudent.contains(player.getUniqueId().toString())) {
             GUI.openGUI(player);
         }
 
@@ -97,7 +101,7 @@ public class GUIPlayerListener implements Listener {
     public void GUIClosing(InventoryCloseEvent event) {
 
         Player player = (Player) event.getPlayer();
-        if (!(keeleStudent.contains(player.getUniqueId().toString()) || nonStudent.contains(player.getUniqueId().toString()))) {
+        if (!keeleStudent.contains(player.getUniqueId().toString()) && !nonStudent.contains(player.getUniqueId().toString())) {
 
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(keeleCore, () -> {
                 if (event.getInventory() == GUI.getGUI()) {

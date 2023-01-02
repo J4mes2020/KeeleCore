@@ -9,15 +9,17 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Team;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public final class KeeleCore extends JavaPlugin {
 
     ConfigFileHandler configFileHandler = new ConfigFileHandler(this);
 
-    public static Set<String> keeleStudent = new HashSet<>();
-    public static Set<String> nonStudent = new HashSet<>();
+    public static List<String> keeleStudent = new ArrayList<>();
+    public static List<String> nonStudent = new ArrayList<>();
 
     @Override
     public void onEnable() {

@@ -22,6 +22,5 @@ public class CommandManager {
         keeleCore.getCommand("clearlag").setExecutor(new ClearLagCommand());
         keeleCore.getCommand("nextclear").setExecutor(new CheckNextClear());
 
-
     }
 }
