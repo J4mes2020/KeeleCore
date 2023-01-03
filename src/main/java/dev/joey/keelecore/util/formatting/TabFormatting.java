@@ -26,7 +26,6 @@ public class TabFormatting {
             luckPerms = provider.getProvider();
             for (Group group : luckPerms.getGroupManager().getLoadedGroups()) {
                 if (group.getCachedData().getMetaData().getPrefix() != null) {
-                    System.out.println(group.getCachedData().getMetaData().getPrefix());
                         mainBoard.registerNewTeam(group.getName()).prefix(Component.text(ChatFormatting.colorize(group.getCachedData().getMetaData().getPrefix())));
                 }
             }

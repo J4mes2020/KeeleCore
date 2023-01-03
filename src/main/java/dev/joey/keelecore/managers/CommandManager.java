@@ -21,6 +21,7 @@ public class CommandManager {
         keeleCore.getCommand("heal").setExecutor(new HealCommand());
         keeleCore.getCommand("clearlag").setExecutor(new ClearLagCommand());
         keeleCore.getCommand("nextclear").setExecutor(new CheckNextClear());
+        keeleCore.getCommand("announce").setExecutor(new AnnounceCommand());
 
     }
 }

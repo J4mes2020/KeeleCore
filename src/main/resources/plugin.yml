@@ -49,3 +49,9 @@ commands:
     aliases:
       - nextlag
     description: Shows when next clear lag
+
+  announce:
+    aliases:
+      - ann
+      - announcement
+    description: Announces a message to the server
