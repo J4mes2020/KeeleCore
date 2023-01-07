@@ -11,47 +11,59 @@ website: https://odionwolf.dev
 
 commands:
   gamemode:
+    permission: kc.gamemode
     description: Changes the players gamemode
     aliases:
       - gm
 
   teleport:
+    permission: kc.teleport
     description: Teleports a player
     aliases:
       - tp
 
   time:
+    permission: kc.time
     description: Changes the world time
     aliases:
       - tm
       - t
 
   vanish:
+    permission: kc.vanish
     description: Vanishes a user
     aliases:
       - v
       - vn
 
   whois:
+    permission: kc.whois
     description: Gains info about a user
     aliases:
       - ws
       - seen
   god:
+    permission: kc.god
     description: Applies godmode to a player
   feed:
+    permission: kc.feed
     description: Feeds a player
   heal:
+    permission: kc.heal
     description: Heals a player
   clearlag:
+    permission: kc.clearlag
     description: clears the server lag
   nextclear:
     aliases:
       - nextlag
     description: Shows when next clear lag
-
   announce:
+    permission: kc.announce
     aliases:
       - ann
       - announcement
     description: Announces a message to the server
+
+  discord:
+    description: Shows discord link

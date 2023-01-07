@@ -4,6 +4,7 @@ import dev.joey.keelecore.admin.cleaning.CheckNextClear;
 import dev.joey.keelecore.admin.cleaning.ClearLagCommand;
 import dev.joey.keelecore.admin.commands.*;
 import dev.joey.keelecore.admin.vanish.VanishCommand;
+import dev.joey.keelecore.player.DiscordCommand;
 
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
@@ -22,6 +23,7 @@ public class CommandManager {
         keeleCore.getCommand("clearlag").setExecutor(new ClearLagCommand());
         keeleCore.getCommand("nextclear").setExecutor(new CheckNextClear());
         keeleCore.getCommand("announce").setExecutor(new AnnounceCommand());
+        keeleCore.getCommand("discord").setExecutor(new DiscordCommand());
 
     }
 }
