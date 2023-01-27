@@ -86,3 +86,6 @@ commands:
       - announcement
     description: Announces a message to the server
     permission: kc.announce
+
+  discord:
+    description: Links our discord
