@@ -17,8 +17,10 @@ public class TeleportCommand extends SuperCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (noPermission(player, "kc.admin", "kc.teleport")) return true;
-
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.teleport"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
         if (args.length == 1) {
             if (playerNullCheck(args[0], player)) return true;
             Player playerTeleportedTo = Bukkit.getPlayer(args[0]);

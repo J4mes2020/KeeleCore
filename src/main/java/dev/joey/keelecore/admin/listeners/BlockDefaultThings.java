@@ -1,6 +1,7 @@
 package dev.joey.keelecore.admin.listeners;
 
 import dev.joey.keelecore.util.UtilClass;
+import dev.joey.keelecore.util.formatting.TabFormatting;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextColor;
@@ -44,7 +45,6 @@ public class BlockDefaultThings implements Listener {
                 }
             }
         }
-
 
     }
 

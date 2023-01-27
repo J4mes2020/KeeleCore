@@ -24,8 +24,10 @@ public class WhoISCommand extends SuperCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (noPermission(player, "kc.admin", "kc.inspect")) return true;
-
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.whois"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
         if (args.length == 1) {
             Player victim = Bukkit.getPlayer(args[0]);
             if (playerNullCheck(victim, player)) return true;

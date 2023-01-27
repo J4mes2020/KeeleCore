@@ -19,7 +19,10 @@ public class FeedCommand extends SuperCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (noPermission(player, "kc.admin", "kc.feed")) return true;
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.feed"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
 
         if (args.length == 0) {
             player.setFoodLevel(40);

@@ -5,6 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public class SuperCommand {
 
     protected boolean commandSenderCheck(CommandSender commandSender) {
@@ -29,19 +31,5 @@ public class SuperCommand {
             return true;
         }
         return false;
-    }
-
-    protected boolean noPermission(Player player, String... permissions) {
-
-        for (String perms : permissions) {
-
-            if (!player.hasPermission(perms)) {
-                UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
-                return true;
-            }
-
-        }
-        return false;
-
     }
 }

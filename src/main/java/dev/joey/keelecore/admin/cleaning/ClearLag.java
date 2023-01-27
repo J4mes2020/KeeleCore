@@ -16,7 +16,8 @@ import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
 public class ClearLag extends SuperCommand {
 
-    int clearTimer = 18000;
+
+    int clearTimer = keeleCore.getConfig().getInt("clearlagtimer");
     int ticksToRemoval = 3000;
     ArrayList<Entity> entities = new ArrayList<>();
     int entityRemovalCount;
@@ -26,6 +27,10 @@ public class ClearLag extends SuperCommand {
     BukkitTask bukkitTaskCounter;
 
     protected void startClearLag() {
+
+        if (clearTimer == -1) {
+            return;
+        }
         Bukkit.getScheduler().runTaskTimer(keeleCore, () -> {
 
             warningClear();
@@ -47,6 +52,10 @@ public class ClearLag extends SuperCommand {
 
     protected void clearLagNow(String time) {
 
+        if (clearTimer == -1) {
+            return;
+        }
+
         entityRemovalCount = 0;
 
         for (World world : Bukkit.getWorlds()) {
@@ -55,9 +64,7 @@ public class ClearLag extends SuperCommand {
 
         for (Entity entity : entities) {
 
-            if (entity instanceof LivingEntity) {
-
-                LivingEntity livingEntity = (LivingEntity) entity;
+            if (entity instanceof LivingEntity livingEntity) {
 
                 if (livingEntity.customName() == null
                         && livingEntity.getTicksLived() >= ticksToRemoval
@@ -68,7 +75,8 @@ public class ClearLag extends SuperCommand {
                             || livingEntity instanceof NPC
                             || livingEntity instanceof Illager
                             || livingEntity instanceof Boss
-                            || livingEntity instanceof Warden) {
+                            || livingEntity instanceof Warden
+                            || livingEntity instanceof Hanging) {
 
                         livingEntity.remove();
                         entityRemovalCount++;

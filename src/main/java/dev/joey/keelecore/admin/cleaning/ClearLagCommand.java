@@ -15,8 +15,10 @@ public class ClearLagCommand extends ClearLag implements CommandExecutor {
 
         Player player = (Player) commandSender;
 
-        if (noPermission(player, "kc.admin", "kc.clearlag")) return true;
-
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.clearlag"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
         if (strings.length >= 1) {
             if (strings[0].matches("[0-9]+")) {
                 clearLagNow(strings[0]);

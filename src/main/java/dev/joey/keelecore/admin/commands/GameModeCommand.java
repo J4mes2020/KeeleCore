@@ -19,7 +19,10 @@ public class GameModeCommand extends SuperCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (noPermission(player, "kc.admin", "kc.gamemode")) return true;
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.gamemode"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
 
         if (args.length == 0 || args.length > 2) {
             player.sendMessage(Component.text().content("Invalid Syntax").color(TextColor.color(UtilClass.error)));

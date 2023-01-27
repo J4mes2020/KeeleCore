@@ -22,6 +22,10 @@ public class CommandManager {
         keeleCore.getCommand("clearlag").setExecutor(new ClearLagCommand());
         keeleCore.getCommand("nextclear").setExecutor(new CheckNextClear());
         keeleCore.getCommand("announce").setExecutor(new AnnounceCommand());
+        keeleCore.getCommand("speed").setExecutor(new SpeedCommand());
+        keeleCore.getCommand("setspawn").setExecutor(new SetSpawnCommand());
+        keeleCore.getCommand("spawn").setExecutor(new SpawnCommand());
+        keeleCore.getCommand("hub").setExecutor(new HubCommand());
 
     }
 }

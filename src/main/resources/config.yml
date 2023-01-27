@@ -1,1 +1,2 @@
 format: "{prefix}{name}{suffix} {message}"
+clearlagtimer: 18000

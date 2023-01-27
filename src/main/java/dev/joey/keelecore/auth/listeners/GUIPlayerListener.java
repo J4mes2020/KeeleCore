@@ -10,6 +10,7 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,9 +20,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
-
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import static dev.joey.keelecore.KeeleCore.keeleStudent;
 import static dev.joey.keelecore.KeeleCore.nonStudent;
@@ -54,9 +52,12 @@ public class GUIPlayerListener implements Listener {
                 .append(Component.text(player.getName()).color(TextColor.color(UtilClass.success))).toBuilder().build()
                 .append(Component.text(" to the keele minecraft server").color(TextColor.color(UtilClass.information))).toBuilder().build());
 
-
-        if (!nonStudent.contains(player.getUniqueId().toString()) && !keeleStudent.contains(player.getUniqueId().toString())) {
-            GUI.openGUI(player);
+        for (World world : keeleCore.getServer().getWorlds()) {
+            if (world.getName().equalsIgnoreCase("hub")) {
+                if (!nonStudent.contains(player.getUniqueId().toString()) && !keeleStudent.contains(player.getUniqueId().toString())) {
+                    GUI.openGUI(player);
+                }
+            }
         }
 
 
@@ -73,7 +74,7 @@ public class GUIPlayerListener implements Listener {
 
                 keeleStudent.add(player.getUniqueId().toString());
                 configFileHandler.getPlayerFile().set("players.students", keeleStudent);
-                InheritanceNode node = InheritanceNode.builder("keelestudent").value(true).build();
+                InheritanceNode node = InheritanceNode.builder("student").value(true).build();
                 user.data().add(node);
                 luckPerms.getUserManager().saveUser(user);
 

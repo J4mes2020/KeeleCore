@@ -29,8 +29,10 @@ public class VanishCommand extends Vanish implements CommandExecutor {
 
         if (commandSenderCheck(sender)) return true;
         Player player = (Player) sender;
-        if (noPermission(player, "kc.admin", "kc.vanish")) return true;
-
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.vanish"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
         if (args.length == 1) {
             player = Bukkit.getPlayer(args[0]);
         }

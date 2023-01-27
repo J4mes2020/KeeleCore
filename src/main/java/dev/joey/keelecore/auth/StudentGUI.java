@@ -20,12 +20,12 @@ public class StudentGUI implements PlayerGUI {
     Inventory GUI;
 
     public ItemStack keeleStudent = createItem(Material.LIME_WOOL,
-            Component.text("Keele Student")
+            Component.text("Student")
                     .style(Style.style(TextColor.color(36, 191, 41), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
                     .toBuilder().build());
 
     public ItemStack nonStudent = createItem(Material.BLUE_WOOL,
-            Component.text("Non Keele Student")
+            Component.text("Non Student")
                     .style(Style.style(TextColor.color(61, 158, 191), TextDecoration.BOLD).decoration(TextDecoration.ITALIC, false))
                     .toBuilder().build());
 

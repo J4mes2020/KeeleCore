@@ -26,7 +26,10 @@ public class AnnounceCommand extends SuperCommand implements CommandExecutor {
 
         Player player = (Player) commandSender;
 
-        if (noPermission(player)) return true;
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.announce"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
 
 
         if (strings.length >= 1) {

@@ -15,7 +15,10 @@ public class GodCommand extends SuperCommand implements CommandExecutor {
 
         if (commandSenderCheck(sender)) return true;
         Player player = (Player) sender;
-        noPermission(player, "kc.admin", "kc.god");
+        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.god"))) {
+            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
+            return true;
+        }
 
         if (args.length == 0) {
             if (!player.isInvulnerable()) {
