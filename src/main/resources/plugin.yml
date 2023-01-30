@@ -47,8 +47,7 @@ commands:
     permission: kc.god
 
   hub:
-    description: Applies godmode to a player
-    permission: kc.god
+    description: Goes to hub
     aliases:
       - lobby
 

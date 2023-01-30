@@ -1,3 +1,4 @@
 format: "{prefix}{name}{suffix} {message}"
 clearlagtimer: 18000
 discord: "https://discord.gg"
+spawnWorld: ""

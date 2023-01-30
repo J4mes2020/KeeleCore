@@ -1,32 +1,34 @@
 package dev.joey.keelecore.admin.commands;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import dev.joey.keelecore.managers.supers.SuperCommand;
 import dev.joey.keelecore.util.UtilClass;
-import org.bukkit.World;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
-public class SetSpawnCommand extends SuperCommand implements CommandExecutor {
+public class DiscordCommand extends SuperCommand implements CommandExecutor {
+
+    public DiscordCommand() {
+        keeleCore.getServer().getMessenger().registerOutgoingPluginChannel(keeleCore, "BungeeCord");
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
         if (commandSenderCheck(sender)) return true;
 
         Player player = (Player) sender;
-        World world = player.getWorld();
 
-        if (!(player.hasPermission("kc.admin") || player.hasPermission("kc.setspawn"))) {
-            UtilClass.sendPlayerMessage(player, "Invalid Rank", UtilClass.error);
-            return true;
-        }
-
-        keeleCore.getConfig().set("spawnWorld", world.getUID().toString());
-        world.setSpawnLocation(player.getLocation());
-        UtilClass.sendPlayerMessage(player, "Set spawn", UtilClass.success);
+        UtilClass.sendPlayerMessage(player, "Join our discord at: " + keeleCore.getConfig().get("discord"), new Color(88, 101, 242).getRGB());
 
         return false;
     }

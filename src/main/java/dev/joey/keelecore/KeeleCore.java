@@ -24,6 +24,7 @@ public final class KeeleCore extends JavaPlugin {
     @Override
     public void onEnable() {
         UtilClass.keeleCore = this;
+        saveDefaultConfig();
         configFileHandler.createPlayerFile();
         if (!Bukkit.getScoreboardManager().getMainScoreboard().getTeams().isEmpty()) {
             Bukkit.getScoreboardManager().getMainScoreboard().getTeams().forEach(Team::unregister);
@@ -40,5 +41,6 @@ public final class KeeleCore extends JavaPlugin {
     public void onDisable() {
         configFileHandler.getPlayerFile().set("vanished", VanishCommand.getVanishedPlayers());
         configFileHandler.saveFile();
+        saveConfig();
     }
 }

@@ -26,6 +26,7 @@ public class CommandManager {
         keeleCore.getCommand("setspawn").setExecutor(new SetSpawnCommand());
         keeleCore.getCommand("spawn").setExecutor(new SpawnCommand());
         keeleCore.getCommand("hub").setExecutor(new HubCommand());
+        keeleCore.getCommand("discord").setExecutor(new DiscordCommand());
 
     }
 }
