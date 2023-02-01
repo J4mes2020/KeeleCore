@@ -1,7 +1,7 @@
 package dev.joey.keelecore.managers;
 
-import dev.joey.keelecore.admin.cleaning.CheckNextClear;
-import dev.joey.keelecore.admin.cleaning.ClearLagCommand;
+import dev.joey.keelecore.server.cleaning.CheckNextClear;
+import dev.joey.keelecore.server.cleaning.ClearLagCommand;
 import dev.joey.keelecore.admin.commands.*;
 import dev.joey.keelecore.admin.vanish.VanishCommand;
 
@@ -27,6 +27,7 @@ public class CommandManager {
         keeleCore.getCommand("spawn").setExecutor(new SpawnCommand());
         keeleCore.getCommand("hub").setExecutor(new HubCommand());
         keeleCore.getCommand("discord").setExecutor(new DiscordCommand());
+        keeleCore.getCommand("rules").setExecutor(new RulesCommand());
 
     }
 }

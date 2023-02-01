@@ -16,11 +16,6 @@ import java.awt.*;
 import static dev.joey.keelecore.util.UtilClass.keeleCore;
 
 public class DiscordCommand extends SuperCommand implements CommandExecutor {
-
-    public DiscordCommand() {
-        keeleCore.getServer().getMessenger().registerOutgoingPluginChannel(keeleCore, "BungeeCord");
-    }
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 

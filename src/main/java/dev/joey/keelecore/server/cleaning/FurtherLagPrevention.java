@@ -1,4 +1,4 @@
-package dev.joey.keelecore.admin.cleaning;
+package dev.joey.keelecore.server.cleaning;
 
 import com.destroystokyo.paper.event.block.TNTPrimeEvent;
 import dev.joey.keelecore.util.UtilClass;

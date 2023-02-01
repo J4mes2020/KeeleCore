@@ -74,6 +74,11 @@ commands:
   spawn:
     description: Teleports to spawn
 
+  rules:
+    description: Shows rules
+    aliases:
+      - rule
+
   nextclear:
     aliases:
       - nextlag

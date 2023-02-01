@@ -1,4 +1,4 @@
-package dev.joey.keelecore.admin.cleaning;
+package dev.joey.keelecore.server.cleaning;
 
 import dev.joey.keelecore.util.UtilClass;
 import org.bukkit.command.Command;
